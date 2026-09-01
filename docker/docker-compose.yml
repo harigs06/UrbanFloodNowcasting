@@ -1,0 +1,111 @@
+version: '3.8'
+
+services:
+  # ----------------------------------------------------
+  # PostgreSQL + PostGIS + TimescaleDB
+  # ----------------------------------------------------
+  db:
+    image: timescale/timescaledb-ha:pg16-latest
+    container_name: flood_timescaledb
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: flood_engine
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgrespassword
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d flood_engine"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ----------------------------------------------------
+  # Redis Queue & In-Memory State Broker
+  # ----------------------------------------------------
+  redis:
+    image: redis:7.2-alpine
+    container_name: flood_redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ----------------------------------------------------
+  # FastAPI Serving Engine
+  # ----------------------------------------------------
+  api:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: flood_api
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql+asyncpg://postgres:postgrespassword@db:5432/flood_engine
+      REDIS_URL: redis://redis:6379/0
+      ENVIRONMENT: production
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  # ----------------------------------------------------
+  # ARQ Pipeline Background Worker
+  # ----------------------------------------------------
+  worker:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: flood_worker
+    restart: unless-stopped
+    command: ["python", "-m", "arq", "src.workers.pipeline_worker.WorkerSettings"]
+    environment:
+      DATABASE_URL: postgresql+asyncpg://postgres:postgrespassword@db:5432/flood_engine
+      REDIS_URL: redis://redis:6379/0
+      ENVIRONMENT: production
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  # ----------------------------------------------------
+  # Prometheus Metrics Collector
+  # ----------------------------------------------------
+  prometheus:
+    image: prom/prometheus:v2.50.0
+    container_name: flood_prometheus
+    restart: unless-stopped
+    volumes:
+      - ../monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    ports:
+      - "9090:9090"
+
+  # ----------------------------------------------------
+  # Grafana Real-Time Inundation Dashboards
+  # ----------------------------------------------------
+  grafana:
+    image: grafana/grafana:10.3.3
+    container_name: flood_grafana
+    restart: unless-stopped
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
+
+volumes:
+  postgres_data:
+  redis_data:

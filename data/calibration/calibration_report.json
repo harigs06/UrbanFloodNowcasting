@@ -1,0 +1,27 @@
+{
+  "overall_mae_cm": 1.199,
+  "overall_rmse_cm": 1.497,
+  "threshold_metrics": {
+    "5.0cm": {
+      "threshold_cm": 5.0,
+      "true_positives": 784.0,
+      "false_positives": 24.0,
+      "false_negatives": 18.0,
+      "true_negatives": 174.0,
+      "POD": 0.9776,
+      "FAR": 0.0297,
+      "CSI": 0.9492
+    },
+    "15.0cm": {
+      "threshold_cm": 15.0,
+      "true_positives": 355.0,
+      "false_positives": 37.0,
+      "false_negatives": 34.0,
+      "true_negatives": 574.0,
+      "POD": 0.9126,
+      "FAR": 0.0944,
+      "CSI": 0.8333
+    }
+  },
+  "meets_deployment_criteria": true
+}

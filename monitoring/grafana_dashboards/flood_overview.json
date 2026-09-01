@@ -1,0 +1,94 @@
+{
+  "annotations": {
+    "list": []
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 1,
+  "links": [],
+  "liveNow": true,
+  "panels": [
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1,
+      "title": "Pipeline End-to-End Cycle Duration (Seconds)",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "rate(flood_e2e_cycle_duration_seconds_sum[1m]) / rate(flood_e2e_cycle_duration_seconds_count[1m])",
+          "legendFormat": "Avg Cycle Duration (s)"
+        }
+      ]
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      },
+      "id": 2,
+      "title": "GNN Surrogate Inference Latency (Seconds)",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "rate(flood_surrogate_inference_seconds_sum[1m]) / rate(flood_surrogate_inference_seconds_count[1m])",
+          "legendFormat": "Avg Surrogate Latency (s)"
+        }
+      ]
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 8
+      },
+      "id": 3,
+      "title": "Active Critical Flood Depth Alerts (>15cm)",
+      "type": "stat",
+      "targets": [
+        {
+          "expr": "flood_active_inundation_alerts_total",
+          "legendFormat": "Alert Count"
+        }
+      ]
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 8
+      },
+      "id": 4,
+      "title": "Data Quality Status (0 = Nominal, 1 = Degraded)",
+      "type": "stat",
+      "targets": [
+        {
+          "expr": "flood_data_quality_degraded",
+          "legendFormat": "Degraded State"
+        }
+      ]
+    }
+  ],
+  "schemaVersion": 38,
+  "style": "dark",
+  "tags": ["urban_flood", "nowcasting"],
+  "time": {
+    "from": "now-1h",
+    "to": "now"
+  },
+  "title": "Urban Flood Nowcasting Engine - Observability Dashboard",
+  "version": 1
+}
