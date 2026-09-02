@@ -12,21 +12,21 @@ A production-grade, sub-minute **Urban Flood Nowcasting and Emergency Navigation
 
 ---
 
-## 📑 Table of Contents
+## Table of Contents
 
-- [Key Architectural Highlights](#-key-architectural-highlights)
-- [Multi-City Scaling Architecture](#-multi-city-scaling-architecture)
-- [End-to-End Project Flows (Stages 1–5)](#-end-to-end-project-flows-stages-15)
+- [Key Architectural Highlights](#key-architectural-highlights)
+- [Multi-City Scaling Architecture](#multi-city-scaling-architecture)
+- [End-to-End Project Flows (Stages 1–5)](#end-to-end-project-flows-stages-1-5)
   - [System Flow Architecture Diagram](#system-flow-architecture-diagram)
   - [Stage 1: Meteorological Ingestion & Radar QPE](#stage-1-meteorological-ingestion--radar-qpe)
   - [Stage 2: Surface Terrain Hydrology & Overland Routing](#stage-2-surface-terrain-hydrology--overland-routing)
   - [Stage 3: GNN Surrogate Inference & Hydraulic Graph Solver](#stage-3-gnn-surrogate-inference--hydraulic-graph-solver)
   - [Stage 4: Mass-Conserving Reservoir-Routing Depth Engine](#stage-4-mass-conserving-reservoir-routing-depth-engine)
   - [Stage 5: Street Inundation Mapping, Routing & Live Broadcasting](#stage-5-street-inundation-mapping-routing--live-broadcasting)
-- [Technology Stack](#-technology-stack)
-- [Repository Structure](#-repository-structure)
-- [Mathematical & Hydraulic Formulations](#-mathematical--hydraulic-formulations)
-- [Operational Processes & Step-by-Step Guide](#-operational-processes--step-by-step-guide)
+- [Technology Stack](#technology-stack)
+- [Repository Structure](#repository-structure)
+- [Mathematical & Hydraulic Formulations](#mathematical--hydraulic-formulations)
+- [Operational Processes & Step-by-Step Guide](#operational-processes--step-by-step-guide)
   - [1. Environment & Dependency Setup](#1-environment--dependency-setup)
   - [2. Multi-City Provisioning & Data Ingestion](#2-multi-city-provisioning--data-ingestion)
   - [3. Offline SWMM Ground Truth, GNN Training & Calibration](#3-offline-swmm-ground-truth-gnn-training--calibration)
@@ -34,8 +34,8 @@ A production-grade, sub-minute **Urban Flood Nowcasting and Emergency Navigation
   - [5. Running the Application](#5-running-the-application)
   - [6. Docker Compose Multi-Service Deployment](#6-docker-compose-multi-service-deployment)
   - [7. Running Automated Test Suite](#7-running-automated-test-suite)
-- [API & WebSocket Reference](#-api--websocket-reference)
-- [Observability & Monitoring](#-observability--monitoring)
+- [API & WebSocket Reference](#api--websocket-reference)
+- [Observability & Monitoring](#observability--monitoring)
 
 ---
 
@@ -88,7 +88,7 @@ The engine features a native **Multi-City Architecture** allowing isolated provi
 
 ---
 
-##  End-to-End Project Flows (Stages 1–5)
+## End-to-End Project Flows (Stages 1-5)
 
 ### System Flow Architecture Diagram
 
@@ -166,7 +166,7 @@ flowchart TD
 
 ---
 
-## 🛠 Technology Stack
+## Technology Stack
 
 ```
                                   ┌────────────────────────────────────────────────────────┐
@@ -295,7 +295,7 @@ urban_flood_engine/
 
 ---
 
-## 📐 Mathematical & Hydraulic Formulations
+## Mathematical & Hydraulic Formulations
 
 ### 1. Marshall-Palmer Radar QPE
 Converts radar reflectivity factor $Z$ ($\text{mm}^6/\text{m}^3$) from decoded Doppler dBZ into rainfall intensity $R$ ($\text{mm/hr}$):
@@ -328,7 +328,7 @@ Where $h_{safe} = 5.0\text{ cm}$ and $\beta = 8.0$ (quadratic penalty weight).
 
 ---
 
-##  Operational Processes & Step-by-Step Guide
+## Operational Processes & Step-by-Step Guide
 
 ### 1. Environment & Dependency Setup
 
@@ -469,7 +469,7 @@ The test suite validates multi-city scaling, radar QPE, mass balance conservatio
 
 ---
 
-##  API & WebSocket Reference
+## API & WebSocket Reference
 
 ### Headers & Authentication
 All protected API endpoints require an API Key header:
@@ -541,7 +541,7 @@ socket.onmessage = (event) => {
 
 ---
 
-##  Observability & Monitoring
+## Observability & Monitoring
 
 The engine exports real-time telemetry formatted for Prometheus scraping at `GET /metrics`:
 
