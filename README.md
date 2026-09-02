@@ -1,4 +1,4 @@
-# Urban Flood Nowcasting Engine (`urban_flood_engine`)
+# Urban Flood Nowcasting System (`urban_flood_engine`)
 
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.110+-009688.svg)](https://fastapi.tiangolo.com)
@@ -6,7 +6,7 @@
 [![igraph](https://img.shields.io/badge/igraph-0.11+-orange.svg)](https://igraph.org/)
 [![PostgreSQL PostGIS](https://img.shields.io/badge/PostGIS-3.4-336791.svg)](https://postgis.net/)
 [![Docker Compose](https://img.shields.io/badge/Docker-Ready-2496ED.svg)](https://www.docker.com/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 
 A production-grade, sub-minute **Urban Flood Nowcasting and Emergency Navigation Engine** engineered for metropolitan scale. The system integrates real-time Doppler Weather Radar (DWR) quantitative precipitation estimation (QPE), high-resolution DEM terrain routing (`pyflwdir`), offline EPA-SWMM dynamic-wave hydrodynamic modeling, Graph Neural Network (GNN) surrogate inference (`ONNX Runtime`), finite-difference mass-conserving reservoir routing depth updates, and flood-safe A* shortest path navigation with impassable barrier cutoffs.
 
@@ -39,7 +39,7 @@ A production-grade, sub-minute **Urban Flood Nowcasting and Emergency Navigation
 
 ---
 
-## ⚡ Key Architectural Highlights
+## Key Architectural Highlights
 
 | Component | Technical Implementation | Performance & Reliability Highlights |
 |---|---|---|
@@ -54,7 +54,7 @@ A production-grade, sub-minute **Urban Flood Nowcasting and Emergency Navigation
 
 ---
 
-## 🌐 Multi-City Scaling Architecture
+## Multi-City Scaling Architecture
 
 The engine features a native **Multi-City Architecture** allowing isolated provisioning, training, and execution across metropolitan regions without cross-talk or shared-state corruption.
 
@@ -88,7 +88,7 @@ The engine features a native **Multi-City Architecture** allowing isolated provi
 
 ---
 
-## 🔄 End-to-End Project Flows (Stages 1–5)
+##  End-to-End Project Flows (Stages 1–5)
 
 ### System Flow Architecture Diagram
 
@@ -209,7 +209,7 @@ flowchart TD
 
 ---
 
-## 📁 Repository Structure
+## Repository Structure
 
 ```
 urban_flood_engine/
@@ -328,7 +328,7 @@ Where $h_{safe} = 5.0\text{ cm}$ and $\beta = 8.0$ (quadratic penalty weight).
 
 ---
 
-## 🚀 Operational Processes & Step-by-Step Guide
+##  Operational Processes & Step-by-Step Guide
 
 ### 1. Environment & Dependency Setup
 
@@ -469,7 +469,7 @@ The test suite validates multi-city scaling, radar QPE, mass balance conservatio
 
 ---
 
-## 📡 API & WebSocket Reference
+##  API & WebSocket Reference
 
 ### Headers & Authentication
 All protected API endpoints require an API Key header:
@@ -541,7 +541,7 @@ socket.onmessage = (event) => {
 
 ---
 
-## 📊 Observability & Monitoring
+##  Observability & Monitoring
 
 The engine exports real-time telemetry formatted for Prometheus scraping at `GET /metrics`:
 
@@ -555,6 +555,4 @@ Pre-configured Prometheus scrape targets (`monitoring/prometheus.yml`) and Grafa
 
 ---
 
-## 📄 License
 
-This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
